@@ -160,9 +160,7 @@ local function RequestNetworkControl(callback)
             end
         end
     end)
-RegisterCommand("sobaka", function()
-    TriggerEvent("K9:ToggleK9", "a_c_rottweiler")
-end)
+
 
     -- Triggers K9 to Attack
     RegisterNetEvent("K9:ToggleAttack")
@@ -223,32 +221,7 @@ end)
         end
     end)
 
--- Gets Control Of Ped
 
--- Gets Players
-function GetPlayers()
-    local players = {}
-    for i = 0, 32 do
-        if NetworkIsPlayerActive(i) then
-            table.insert(players, i)
-        end
-    end
-    return players
-end
-
-
--- Gets Player ID
-function GetPlayerId(target_ped)
-    local players = GetPlayers()
-    for a = 1, #players do
-        local ped = GetPlayerPed(players[a])
-        local server_id = GetPlayerServerId(players[a])
-        if target_ped == ped then
-            return server_id
-        end
-    end
-    return 0
-end
 
 RegisterNetEvent("vrp_dog:spawndog")
 AddEventHandler("vrp_dog:spawndog", function()
