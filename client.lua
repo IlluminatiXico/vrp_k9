@@ -1,4 +1,7 @@
+local Tunnel = module("vrp", "lib/Tunnel")
 local Proxy = module("vrp", "lib/Proxy")
+
+vRPserver = Tunnel.getInterface("vRP")
 tvRP = Proxy.getInterface("vRP")
 
 
@@ -25,9 +28,9 @@ tvRP = Proxy.getInterface("vRP")
         }
     }
 
-   local function GetPlayers()
+local function GetPlayers()
         local players = {}
-        for i = 0, 32 do
+        for i = 0, 128 do
             if NetworkIsPlayerActive(i) then
                 table.insert(players, i)
             end
@@ -37,7 +40,7 @@ tvRP = Proxy.getInterface("vRP")
     
     
     -- Gets Player ID
- local   function GetPlayerId(target_ped)
+local function GetPlayerId(target_ped)
         local players = GetPlayers()
         for a = 1, #players do
             local ped = GetPlayerPed(players[a])
@@ -104,10 +107,6 @@ local function RequestNetworkControl(callback)
             AddTextComponentString(tostring("GPS: ".. k9_name))
             EndTextCommandSetBlipName(blip)
             NetworkRegisterEntityAsNetworked(spawned_ped)
-            while not NetworkGetEntityIsNetworked(spawned_ped) do
-                NetworkRegisterEntityAsNetworked(spawned_ped)
-                Wait(5)
-            end
         else
             local has_control = false
             RequestNetworkControl(function(cb)
@@ -160,7 +159,6 @@ local function RequestNetworkControl(callback)
             end
         end
     end)
-
 
     -- Triggers K9 to Attack
     RegisterNetEvent("K9:ToggleAttack")
@@ -222,7 +220,6 @@ local function RequestNetworkControl(callback)
     end)
 
 
-
 RegisterNetEvent("vrp_dog:spawndog")
 AddEventHandler("vrp_dog:spawndog", function()
         TriggerEvent("K9:ToggleK9", "a_c_rottweiler")
@@ -241,4 +238,24 @@ AddEventHandler("vrp_dog:spawndog", function()
         if spawned_ped ~= nil then
             PlayAnimation(animations['Normal'].laydown.dict, animations['Normal'].laydown.anim)
         end
+    end)
+
+RegisterNetEvent("vrp_dog:spawndog_rottweiler")
+AddEventHandler("vrp_dog:spawndog_rottweiler", function()
+        TriggerEvent("K9:ToggleK9", "a_c_rottweiler")
+    end)
+
+RegisterNetEvent("vrp_dog:spawndog_retriever")
+AddEventHandler("vrp_dog:spawndog_retriever", function()
+        TriggerEvent("K9:ToggleK9", "a_c_retriever")
+    end)
+
+RegisterNetEvent("vrp_dog:spawndog_shepherd")
+AddEventHandler("vrp_dog:spawndog_shepherd", function()
+        TriggerEvent("K9:ToggleK9", "a_c_shepherd")
+    end)
+
+RegisterNetEvent("vrp_dog:spawndog_husky")
+AddEventHandler("vrp_dog:spawndog_husky", function()
+        TriggerEvent("K9:ToggleK9", "a_c_husky")
     end)
