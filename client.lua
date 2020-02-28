@@ -28,7 +28,7 @@ tvRP = Proxy.getInterface("vRP")
         }
     }
 
-    function GetPlayers()
+   local function GetPlayers()
         local players = {}
         for i = 0, 32 do
             if NetworkIsPlayerActive(i) then
@@ -40,7 +40,7 @@ tvRP = Proxy.getInterface("vRP")
     
     
     -- Gets Player ID
-    function GetPlayerId(target_ped)
+ local   function GetPlayerId(target_ped)
         local players = GetPlayers()
         for a = 1, #players do
             local ped = GetPlayerPed(players[a])
